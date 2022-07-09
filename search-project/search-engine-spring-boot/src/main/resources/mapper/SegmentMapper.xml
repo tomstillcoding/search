@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.search.dao.SegmentDao">
+
+    <resultMap id="segmentMap" type="com.search.entity.Segment">
+        <id column="id" property="id"></id>
+        <result column="word" property="word"></result>
+    </resultMap>
+
+    <select id="getAllSeg" resultType="com.search.entity.Segment">
+        select *
+        from segment
+    </select>
+
+    <select id="getOneSeg" resultType="com.search.entity.Segment" parameterType="java.lang.String">
+        SELECT *
+        FROM segment
+        WHERE word = #{word}
+    </select>
+
+</mapper>

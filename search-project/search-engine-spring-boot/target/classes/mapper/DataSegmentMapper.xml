@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.search.dao.DataSegmentDao">
+
+    <insert id="initSegmentTable" parameterType="list">
+        insert into segment(word)
+        values
+        <foreach collection="segs" item="item" separator=",">
+            (#{item})
+        </foreach>
+
+    </insert>
+
+    <insert id="initRelationTable" parameterType="list" statementType="STATEMENT">
+        insert into ${tableName}(data_id, seg_id, tidif_value, count)
+        values
+        <foreach collection="relations" item="item" separator=",">
+            (
+            ${item.dataId},
+            ${item.segId},
+            ${item.tidif},
+            ${item.count}
+            )
+        </foreach>
+    </insert>
+
+    <update id="createNewTable" parameterType="String">
+        CREATE TABLE if not exists ${tableName}
+        (
+            `data_id`
+            int
+            NOT
+            NULL,
+            `seg_id`
+            int
+            NOT
+            NULL,
+            `tidif_value`
+            double
+            NULL
+            DEFAULT
+            NULL,
+            `count`
+            int
+            NULL
+            DEFAULT
+            NULL,
+            INDEX
+            `index`
+        (
+            `seg_id`
+        ) USING BTREE
+            )
+    </update>
+</mapper>
